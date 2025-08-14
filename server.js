@@ -1,9 +1,3 @@
-// server.js - Node.js Backend for Advanced Munsell Chart
-// This backend serves the interactive HTML frontend and provides RESTful APIs for advanced color features.
-// It uses Express.js for routing, tinycolor2 for color manipulations, wcag-contrast for accessibility checks,
-// color-blind for color vision deficiency simulations, and Jimp for generating PNG exports.
-// Install dependencies: npm install express body-parser tinycolor2 wcag-contrast color-blind jimp
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const tinycolor = require('tinycolor2');
