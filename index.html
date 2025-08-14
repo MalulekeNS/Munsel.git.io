@@ -288,6 +288,305 @@
             color: #666;
         }
 
+        .advanced-tools {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .tool-button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .tool-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+        }
+
+        .tool-button:active {
+            transform: translateY(0);
+        }
+
+        .tool-button.secondary {
+            background: linear-gradient(135deg, #64b3f4, #c2e59c);
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #f0f0f0;
+        }
+
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .palette-color {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            border: 2px solid white;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            position: relative;
+        }
+
+        .palette-color:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .palette-color::after {
+            content: attr(data-hex);
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 10px;
+            color: #666;
+            white-space: nowrap;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .comparison-item {
+            text-align: center;
+        }
+
+        .comparison-color {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            margin: 0 auto 10px;
+            border: 3px solid white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-info {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .info-item {
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .export-format {
+            margin: 10px 0;
+            padding: 10px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: border-color 0.3s ease;
+        }
+
+        .export-format:hover {
+            border-color: #667eea;
+        }
+
+        .export-format input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        .color-blind-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .color-blind-type {
+            text-align: center;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .color-blind-colors {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .color-blind-colors .small-color {
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+
+        .accessibility-info {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .contrast-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .contrast-item {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .favorite-colors {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .favorite-color {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid white;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .favorite-color:hover {
+            transform: scale(1.1);
+        }
+
+        .remove-favorite {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .view-mode-toggle {
+            display: flex;
+            background: #f0f0f0;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 20px;
+        }
+
+        .view-mode-btn {
+            flex: 1;
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-mode-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -386,11 +685,170 @@
             </div>
         </div>
 
+        <div class="advanced-tools">
+            <div class="view-mode-toggle">
+                <button class="view-mode-btn active" id="grid-view">Grid View</button>
+                <button class="view-mode-btn" id="wheel-view">Color Wheel</button>
+                <button class="view-mode-btn" id="list-view">List View</button>
+            </div>
+            
+            <div class="tools-grid">
+                <button class="tool-button" id="color-picker">🎨 Color Picker</button>
+                <button class="tool-button" id="palette-generator">🎭 Generate Palette</button>
+                <button class="tool-button" id="color-compare">⚖️ Compare Colors</button>
+                <button class="tool-button secondary" id="export-colors">💾 Export Colors</button>
+                <button class="tool-button secondary" id="accessibility-check">♿ Accessibility</button>
+                <button class="tool-button secondary" id="color-harmony">🎵 Color Harmony</button>
+            </div>
+            
+            <div id="favorite-section" style="display: none;">
+                <h4 style="margin-bottom: 10px;">❤️ Favorite Colors</h4>
+                <div class="favorite-colors" id="favorite-colors"></div>
+                <button class="tool-button" id="clear-favorites" style="margin-top: 10px; font-size: 12px; padding: 8px 12px;">Clear All</button>
+            </div>
+        </div>
+
         <div class="chart" id="chart"></div>
         <div class="stats" id="stats"></div>
     </div>
 
     <div class="tooltip" id="tooltip"></div>
+
+    <!-- Advanced Feature Modals -->
+    <div class="modal" id="color-picker-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('color-picker-modal')">&times;</button>
+            <h3>🎨 Advanced Color Picker</h3>
+            <div style="margin: 20px 0;">
+                <input type="color" id="color-input" style="width: 100%; height: 60px; border: none; border-radius: 8px;">
+            </div>
+            <div class="color-info" id="picked-color-info"></div>
+            <button class="tool-button" id="add-to-favorites" style="margin-top: 15px;">Add to Favorites</button>
+        </div>
+    </div>
+
+    <div class="modal" id="palette-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('palette-modal')">&times;</button>
+            <h3>🎭 Color Palette Generator</h3>
+            <div class="tools-grid" style="margin: 20px 0;">
+                <button class="tool-button" onclick="generatePalette('monochromatic')">Monochromatic</button>
+                <button class="tool-button" onclick="generatePalette('analogous')">Analogous</button>
+                <button class="tool-button" onclick="generatePalette('complementary')">Complementary</button>
+                <button class="tool-button secondary" onclick="generatePalette('triadic')">Triadic</button>
+                <button class="tool-button secondary" onclick="generatePalette('tetradic')">Tetradic</button>
+                <button class="tool-button secondary" onclick="generatePalette('random')">Random</button>
+            </div>
+            <div class="color-palette" id="generated-palette"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="compare-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('compare-modal')">&times;</button>
+            <h3>⚖️ Color Comparison Tool</h3>
+            <div class="comparison-grid">
+                <div class="comparison-item">
+                    <h4>Color A</h4>
+                    <div class="comparison-color" id="compare-color-a" style="background: #ff6b6b;"></div>
+                    <input type="color" id="compare-input-a" value="#ff6b6b">
+                </div>
+                <div class="comparison-item">
+                    <h4>Color B</h4>
+                    <div class="comparison-color" id="compare-color-b" style="background: #4ecdc4;"></div>
+                    <input type="color" id="compare-input-b" value="#4ecdc4">
+                </div>
+            </div>
+            <div class="color-info">
+                <h4>Comparison Results</h4>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Contrast Ratio</div>
+                        <div class="info-value" id="contrast-ratio">4.5:1</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Color Difference</div>
+                        <div class="info-value" id="color-difference">76.2</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">WCAG Rating</div>
+                        <div class="info-value" id="wcag-rating">AA</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="export-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('export-modal')">&times;</button>
+            <h3>💾 Export Color Data</h3>
+            <div style="margin: 20px 0;">
+                <h4>Select Format:</h4>
+                <div class="export-format">
+                    <input type="radio" name="export-format" value="css" id="css-format" checked>
+                    <label for="css-format">CSS Variables</label>
+                </div>
+                <div class="export-format">
+                    <input type="radio" name="export-format" value="json" id="json-format">
+                    <label for="json-format">JSON</label>
+                </div>
+                <div class="export-format">
+                    <input type="radio" name="export-format" value="ase" id="ase-format">
+                    <label for="ase-format">Adobe ASE (Swatch Exchange)</label>
+                </div>
+                <div class="export-format">
+                    <input type="radio" name="export-format" value="png" id="png-format">
+                    <label for="png-format">PNG Color Palette</label>
+                </div>
+            </div>
+            <button class="tool-button" onclick="exportColors()">Export Selected Colors</button>
+            <textarea id="export-output" style="width: 100%; height: 200px; margin-top: 15px; padding: 10px; border: 1px solid #ddd; border-radius: 8px;" readonly></textarea>
+        </div>
+    </div>
+
+    <div class="modal" id="accessibility-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('accessibility-modal')">&times;</button>
+            <h3>♿ Accessibility Analysis</h3>
+            
+            <div class="color-blind-preview">
+                <div class="color-blind-type">
+                    <h4>Normal Vision</h4>
+                    <div class="color-blind-colors" id="normal-vision"></div>
+                </div>
+                <div class="color-blind-type">
+                    <h4>Deuteranopia</h4>
+                    <div class="color-blind-colors" id="deuteranopia"></div>
+                </div>
+                <div class="color-blind-type">
+                    <h4>Protanopia</h4>
+                    <div class="color-blind-colors" id="protanopia"></div>
+                </div>
+                <div class="color-blind-type">
+                    <h4>Tritanopia</h4>
+                    <div class="color-blind-colors" id="tritanopia"></div>
+                </div>
+            </div>
+
+            <div class="accessibility-info">
+                <h4>WCAG Compliance Check</h4>
+                <div class="contrast-grid" id="wcag-results"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="harmony-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('harmony-modal')">&times;</button>
+            <h3>🎵 Color Harmony Analysis</h3>
+            <div style="margin: 20px 0;">
+                <label for="base-color-harmony">Base Color:</label>
+                <input type="color" id="base-color-harmony" value="#667eea" style="width: 100%; height: 50px; border: none; border-radius: 8px; margin: 10px 0;">
+            </div>
+            <div id="harmony-results"></div>
+        </div>
+    </div>
 
     <script>
         const munsellData = [
@@ -559,16 +1017,70 @@
                                    (!search || hueData.hue.toLowerCase().includes(search.toLowerCase()) || 
                                               hueData.name.toLowerCase().includes(search.toLowerCase())));
 
-            if (filteredData.length === 0) {
+            if (currentViewMode === 'wheel') {
+                // Color wheel view
                 chart.innerHTML = `
-                    <div class="empty-state">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                        </svg>
-                        <div>No colors match your current filters</div>
+                    <div style="display: flex; justify-content: center; align-items: center; min-height: 400px;">
+                        <div style="position: relative; width: 350px; height: 350px; border-radius: 50%; background: conic-gradient(
+                            ${munsellData.map((hue, index) => 
+                                `${hue.colors[2].hex} ${index * (360/munsellData.length)}deg ${(index + 1) * (360/munsellData.length)}deg`
+                            ).join(', ')}
+                        ); box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+                            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                                        background: white; border-radius: 50%; width: 100px; height: 100px; 
+                                        display: flex; align-items: center; justify-content: center; 
+                                        font-weight: bold; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                                Munsell<br>Wheel
+                            </div>
+                        </div>
                     </div>
                 `;
-                stats.textContent = "No colors found";
+                return;
+            }
+
+            if (currentViewMode === 'list') {
+                // List view
+                chart.innerHTML = '';
+                filteredData.forEach(hueData => {
+                    const listItem = document.createElement('div');
+                    listItem.style.cssText = `
+                        background: rgba(255,255,255,0.95); 
+                        border-radius: 15px; 
+                        padding: 20px; 
+                        margin-bottom: 15px;
+                        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                    `;
+                    
+                    const filteredColors = hueData.colors.filter(color => {
+                        const valueMatch = !value || value === 0 || color.value === parseInt(value);
+                        const chromaMatch = !chroma || chroma === 0 || color.chroma === parseInt(chroma);
+                        return valueMatch && chromaMatch;
+                    });
+
+                    if (filteredColors.length > 0) {
+                        listItem.innerHTML = `
+                            <h3 style="margin-bottom: 15px; color: #333;">${hueData.hue} - ${hueData.name}</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                ${filteredColors.map(color => `
+                                    <div style="display: flex; align-items: center; gap: 10px; padding: 8px; 
+                                                background: #f8f9fa; border-radius: 8px; min-width: 200px;">
+                                        <div style="width: 30px; height: 30px; background: ${color.hex}; 
+                                                    border-radius: 6px; border: 2px solid white; 
+                                                    box-shadow: 0 2px 4px rgba(0,0,0,0.1);"></div>
+                                        <div>
+                                            <div style="font-weight: 600; font-size: 14px;">${color.hex}</div>
+                                            <div style="font-size: 12px; color: #666;">V${color.value} C${color.chroma}</div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                        chart.appendChild(listItem);
+                        colorCount += filteredColors.length;
+                    }
+                });
+                
+                stats.textContent = `Showing ${colorCount} colors from ${filteredData.length} hues`;
                 return;
             }
 
@@ -615,16 +1127,40 @@
                             tooltip.style.display = "none";
                         });
 
-                        colorBox.addEventListener("click", () => {
-                            navigator.clipboard.writeText(color.hex).then(() => {
-                                const originalText = tooltip.innerHTML;
-                                tooltip.innerHTML = `${originalText}<br><em>Copied to clipboard!</em>`;
-                                setTimeout(() => {
-                                    if (tooltip.style.display === "block") {
-                                        tooltip.innerHTML = originalText;
-                                    }
-                                }, 1500);
-                            });
+                        colorBox.addEventListener("click", (e) => {
+                            if (e.ctrlKey || e.metaKey) {
+                                // Add to selection for export
+                                if (selectedColors.has(color)) {
+                                    selectedColors.delete(color);
+                                    colorBox.style.border = "3px solid rgba(255, 255, 255, 0.8)";
+                                } else {
+                                    selectedColors.add(color);
+                                    colorBox.style.border = "3px solid #ff6b6b";
+                                }
+                            } else if (e.shiftKey) {
+                                // Add to favorites
+                                const colorData = { ...color, hue: hueData.hue, name: hueData.name };
+                                if (!favoriteColors.some(fav => fav.hex === color.hex)) {
+                                    favoriteColors.push(colorData);
+                                    localStorage.setItem('munsell-favorites', JSON.stringify(favoriteColors));
+                                    updateFavoriteColors();
+                                    
+                                    // Visual feedback
+                                    colorBox.style.transform = 'scale(1.2)';
+                                    setTimeout(() => colorBox.style.transform = '', 300);
+                                }
+                            } else {
+                                // Copy to clipboard
+                                navigator.clipboard.writeText(color.hex).then(() => {
+                                    const originalText = tooltip.innerHTML;
+                                    tooltip.innerHTML = `${originalText}<br><em>Copied to clipboard!</em>`;
+                                    setTimeout(() => {
+                                        if (tooltip.style.display === "block") {
+                                            tooltip.innerHTML = originalText;
+                                        }
+                                    }, 1500);
+                                });
+                            }
                         });
 
                         colorsGrid.appendChild(colorBox);
@@ -663,14 +1199,50 @@
 
         // Initialize
         updateLabels();
+        updateFavoriteColors();
         renderChart();
 
-        // Hide tooltip when clicking elsewhere
-        document.addEventListener("click", (e) => {
-            if (!e.target.classList.contains("color-box")) {
-                tooltip.style.display = "none";
+        // Close modals when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    modal.style.display = 'none';
+                });
+            }
+            if (e.ctrlKey && e.key === 'e') {
+                e.preventDefault();
+                document.getElementById('export-modal').style.display = 'flex';
+            }
+            if (e.ctrlKey && e.key === 'f') {
+                e.preventDefault();
+                searchBox.focus();
             }
         });
+
+        // Initialize comparison
+        updateComparison();
+
+        // Auto-save selected colors
+        window.addEventListener('beforeunload', () => {
+            if (selectedColors.size > 0) {
+                localStorage.setItem('munsell-selection', JSON.stringify(Array.from(selectedColors)));
+            }
+        });
+
+        // Load saved selection
+        const savedSelection = localStorage.getItem('munsell-selection');
+        if (savedSelection) {
+            selectedColors = new Set(JSON.parse(savedSelection));
+        }
     </script>
 </body>
 </html>
