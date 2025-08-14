@@ -3,120 +3,527 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Munsell Chart</title>
+    <title>Advanced Munsell Chart</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
         }
-        h1, h2 {
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
             text-align: center;
+            margin-bottom: 40px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 400;
+        }
+
         .controls {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
         .control-group {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            gap: 10px;
         }
-        select, input[type="range"] {
-            margin-top: 5px;
-            padding: 5px 10px;
+
+        .control-group label {
+            font-weight: 600;
+            color: #444;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        select {
+            padding: 12px 16px;
             font-size: 16px;
-        }
-        input[type="text"] {
-            padding: 5px;
-            font-size: 16px;
-            margin-top: 5px;
-            width: 200px;
-        }
-        .chart {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-        }
-        .hue {
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            padding: 10px;
-            width: 300px;
-            text-align: center;
-            background-color: #f9f9f9;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .value {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-        }
-        .color-box {
-            width: 50px;
-            height: 50px;
-            margin: 5px;
-            border: 1px solid #000;
-            border-radius: 4px;
-            transition: transform 0.2s ease;
-        }
-        .color-box:hover {
-            transform: scale(1.1);
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            background: white;
+            transition: all 0.3s ease;
             cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+            padding-right: 40px;
         }
-        .tooltip {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 10px;
+
+        select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .slider-container {
+            position: relative;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 8px;
             border-radius: 5px;
+            background: linear-gradient(to right, #e1e5e9, #667eea);
+            outline: none;
+            -webkit-appearance: none;
+            margin: 10px 0;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider-value {
+            position: absolute;
+            top: -35px;
+            right: 0;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .chart {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .hue-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            transform-origin: center;
+        }
+
+        .hue-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .hue-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .colors-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .color-box {
+            aspect-ratio: 1;
+            border-radius: 16px;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .color-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .color-box:hover {
+            transform: scale(1.1) rotate(2deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: white;
+            z-index: 10;
+        }
+
+        .color-box:hover::before {
+            opacity: 1;
+        }
+
+        .tooltip {
+            position: fixed;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 12px;
             font-size: 14px;
+            font-weight: 500;
             display: none;
             z-index: 1000;
+            pointer-events: none;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .tooltip::before {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgba(0, 0, 0, 0.9) transparent transparent transparent;
+        }
+
+        .stats {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            font-weight: 600;
+            color: #666;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hue-card {
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .controls-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .chart {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .hue-card {
+                padding: 20px;
+            }
+
+            .colors-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Interactive Munsell Color System Chart</h1>
-    <h2>Hue, Value, and Chroma Representation</h2>
-    
-    <div class="controls">
-        <div class="control-group">
-            <label for="filter-hue">Filter by Hue:</label>
-            <select id="filter-hue">
-                <option value="all">All</option>
-            </select>
+    <div class="container">
+        <header>
+            <h1>Advanced Munsell Color System</h1>
+            <p class="subtitle">Interactive Hue, Value, and Chroma Explorer</p>
+        </header>
+        
+        <div class="controls">
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label for="filter-hue">Filter by Hue</label>
+                    <select id="filter-hue">
+                        <option value="all">All Hues</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="filter-value">Value Range</label>
+                    <div class="slider-container">
+                        <input type="range" id="filter-value" min="0" max="9" value="0">
+                        <span class="slider-value" id="value-label">All</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="filter-chroma">Chroma Level</label>
+                    <div class="slider-container">
+                        <input type="range" id="filter-chroma" min="0" max="14" step="2" value="0">
+                        <span class="slider-value" id="chroma-label">All</span>
+                    </div>
+                </div>
+                
+                <div class="control-group">
+                    <label for="search-box">Search Hue</label>
+                    <input type="text" id="search-box" placeholder="e.g., 5R, 10YR, 2.5B">
+                </div>
+            </div>
         </div>
-        <div class="control-group">
-            <label for="filter-value">Filter by Value:</label>
-            <input type="range" id="filter-value" min="1" max="4" value="1">
-            <span id="value-label">1</span>
-        </div>
-        <div class="control-group">
-            <label for="filter-chroma">Filter by Chroma:</label>
-            <input type="range" id="filter-chroma" min="2" max="8" step="2" value="2">
-            <span id="chroma-label">2</span>
-        </div>
-        <div class="control-group">
-            <label for="search-box">Search Hue:</label>
-            <input type="text" id="search-box" placeholder="e.g., 5R">
-        </div>
-    </div>
 
-    <div class="chart" id="chart"></div>
+        <div class="chart" id="chart"></div>
+        <div class="stats" id="stats"></div>
+    </div>
 
     <div class="tooltip" id="tooltip"></div>
 
     <script>
         const munsellData = [
-            { hue: "5R", colors: ["#FFB3B3", "#FF8080", "#FF4D4D", "#FF1A1A"] },
-            { hue: "5Y", colors: ["#FFFFB3", "#FFFF80", "#FFFF4D", "#FFFF1A"] },
-            { hue: "5G", colors: ["#B3FFB3", "#80FF80", "#4DFF4D", "#1AFF1A"] },
-            { hue: "5B", colors: ["#B3B3FF", "#8080FF", "#4D4DFF", "#1A1AFF"] },
-            { hue: "5P", colors: ["#FFB3FF", "#FF80FF", "#FF4DFF", "#FF1AFF"] },
+            { hue: "5R", name: "Red", colors: [
+                { hex: "#FFE6E6", value: 9, chroma: 2 },
+                { hex: "#FFCCCC", value: 8, chroma: 4 },
+                { hex: "#FFB3B3", value: 7, chroma: 6 },
+                { hex: "#FF9999", value: 6, chroma: 8 },
+                { hex: "#FF8080", value: 5, chroma: 10 },
+                { hex: "#FF6666", value: 4, chroma: 12 },
+                { hex: "#FF4D4D", value: 3, chroma: 14 },
+                { hex: "#FF3333", value: 2, chroma: 16 }
+            ]},
+            { hue: "10R", name: "Red-Orange", colors: [
+                { hex: "#FFE6E0", value: 9, chroma: 2 },
+                { hex: "#FFCCC0", value: 8, chroma: 4 },
+                { hex: "#FFB3A0", value: 7, chroma: 6 },
+                { hex: "#FF9980", value: 6, chroma: 8 },
+                { hex: "#FF8060", value: 5, chroma: 10 },
+                { hex: "#FF6640", value: 4, chroma: 12 },
+                { hex: "#FF4D20", value: 3, chroma: 14 },
+                { hex: "#FF3300", value: 2, chroma: 16 }
+            ]},
+            { hue: "5YR", name: "Orange", colors: [
+                { hex: "#FFE6D9", value: 9, chroma: 2 },
+                { hex: "#FFCCB3", value: 8, chroma: 4 },
+                { hex: "#FFB38D", value: 7, chroma: 6 },
+                { hex: "#FF9966", value: 6, chroma: 8 },
+                { hex: "#FF8040", value: 5, chroma: 10 },
+                { hex: "#FF661A", value: 4, chroma: 12 },
+                { hex: "#E54D00", value: 3, chroma: 14 },
+                { hex: "#CC4400", value: 2, chroma: 16 }
+            ]},
+            { hue: "10YR", name: "Yellow-Orange", colors: [
+                { hex: "#FFF2E6", value: 9, chroma: 2 },
+                { hex: "#FFE6CC", value: 8, chroma: 4 },
+                { hex: "#FFD9B3", value: 7, chroma: 6 },
+                { hex: "#FFCC99", value: 6, chroma: 8 },
+                { hex: "#FFBF80", value: 5, chroma: 10 },
+                { hex: "#FFB366", value: 4, chroma: 12 },
+                { hex: "#FFA64D", value: 3, chroma: 14 },
+                { hex: "#FF9933", value: 2, chroma: 16 }
+            ]},
+            { hue: "5Y", name: "Yellow", colors: [
+                { hex: "#FFFFF2", value: 9, chroma: 2 },
+                { hex: "#FFFFE6", value: 8, chroma: 4 },
+                { hex: "#FFFFD9", value: 7, chroma: 6 },
+                { hex: "#FFFFCC", value: 6, chroma: 8 },
+                { hex: "#FFFFBF", value: 5, chroma: 10 },
+                { hex: "#FFFFB3", value: 4, chroma: 12 },
+                { hex: "#FFFF80", value: 3, chroma: 14 },
+                { hex: "#FFFF4D", value: 2, chroma: 16 }
+            ]},
+            { hue: "10Y", name: "Green-Yellow", colors: [
+                { hex: "#F2FFE6", value: 9, chroma: 2 },
+                { hex: "#E6FFCC", value: 8, chroma: 4 },
+                { hex: "#D9FFB3", value: 7, chroma: 6 },
+                { hex: "#CCFF99", value: 6, chroma: 8 },
+                { hex: "#BFFF80", value: 5, chroma: 10 },
+                { hex: "#B3FF66", value: 4, chroma: 12 },
+                { hex: "#A6FF4D", value: 3, chroma: 14 },
+                { hex: "#99FF33", value: 2, chroma: 16 }
+            ]},
+            { hue: "5GY", name: "Yellow-Green", colors: [
+                { hex: "#E6FFE6", value: 9, chroma: 2 },
+                { hex: "#CCFFCC", value: 8, chroma: 4 },
+                { hex: "#B3FFB3", value: 7, chroma: 6 },
+                { hex: "#99FF99", value: 6, chroma: 8 },
+                { hex: "#80FF80", value: 5, chroma: 10 },
+                { hex: "#66FF66", value: 4, chroma: 12 },
+                { hex: "#4DFF4D", value: 3, chroma: 14 },
+                { hex: "#33FF33", value: 2, chroma: 16 }
+            ]},
+            { hue: "10GY", name: "Green", colors: [
+                { hex: "#E6FFEC", value: 9, chroma: 2 },
+                { hex: "#CCFFD9", value: 8, chroma: 4 },
+                { hex: "#B3FFC6", value: 7, chroma: 6 },
+                { hex: "#99FFB3", value: 6, chroma: 8 },
+                { hex: "#80FFA0", value: 5, chroma: 10 },
+                { hex: "#66FF8D", value: 4, chroma: 12 },
+                { hex: "#4DFF7A", value: 3, chroma: 14 },
+                { hex: "#33FF66", value: 2, chroma: 16 }
+            ]},
+            { hue: "5G", name: "Blue-Green", colors: [
+                { hex: "#E6FFF2", value: 9, chroma: 2 },
+                { hex: "#CCFFE6", value: 8, chroma: 4 },
+                { hex: "#B3FFD9", value: 7, chroma: 6 },
+                { hex: "#99FFCC", value: 6, chroma: 8 },
+                { hex: "#80FFBF", value: 5, chroma: 10 },
+                { hex: "#66FFB3", value: 4, chroma: 12 },
+                { hex: "#4DFFA6", value: 3, chroma: 14 },
+                { hex: "#33FF99", value: 2, chroma: 16 }
+            ]},
+            { hue: "5B", name: "Blue", colors: [
+                { hex: "#E6E6FF", value: 9, chroma: 2 },
+                { hex: "#CCCCFF", value: 8, chroma: 4 },
+                { hex: "#B3B3FF", value: 7, chroma: 6 },
+                { hex: "#9999FF", value: 6, chroma: 8 },
+                { hex: "#8080FF", value: 5, chroma: 10 },
+                { hex: "#6666FF", value: 4, chroma: 12 },
+                { hex: "#4D4DFF", value: 3, chroma: 14 },
+                { hex: "#3333FF", value: 2, chroma: 16 }
+            ]},
+            { hue: "10B", name: "Purple-Blue", colors: [
+                { hex: "#EDE6FF", value: 9, chroma: 2 },
+                { hex: "#DBCCFF", value: 8, chroma: 4 },
+                { hex: "#C9B3FF", value: 7, chroma: 6 },
+                { hex: "#B799FF", value: 6, chroma: 8 },
+                { hex: "#A580FF", value: 5, chroma: 10 },
+                { hex: "#9366FF", value: 4, chroma: 12 },
+                { hex: "#814DFF", value: 3, chroma: 14 },
+                { hex: "#6F33FF", value: 2, chroma: 16 }
+            ]},
+            { hue: "5P", name: "Purple", colors: [
+                { hex: "#F2E6FF", value: 9, chroma: 2 },
+                { hex: "#E6CCFF", value: 8, chroma: 4 },
+                { hex: "#D9B3FF", value: 7, chroma: 6 },
+                { hex: "#CC99FF", value: 6, chroma: 8 },
+                { hex: "#BF80FF", value: 5, chroma: 10 },
+                { hex: "#B366FF", value: 4, chroma: 12 },
+                { hex: "#A64DFF", value: 3, chroma: 14 },
+                { hex: "#9933FF", value: 2, chroma: 16 }
+            ]},
+            { hue: "10P", name: "Red-Purple", colors: [
+                { hex: "#FFE6F2", value: 9, chroma: 2 },
+                { hex: "#FFCCE6", value: 8, chroma: 4 },
+                { hex: "#FFB3D9", value: 7, chroma: 6 },
+                { hex: "#FF99CC", value: 6, chroma: 8 },
+                { hex: "#FF80BF", value: 5, chroma: 10 },
+                { hex: "#FF66B3", value: 4, chroma: 12 },
+                { hex: "#FF4DA6", value: 3, chroma: 14 },
+                { hex: "#FF3399", value: 2, chroma: 16 }
+            ]}
         ];
 
         const chart = document.getElementById("chart");
@@ -127,98 +534,143 @@
         const tooltip = document.getElementById("tooltip");
         const valueLabel = document.getElementById("value-label");
         const chromaLabel = document.getElementById("chroma-label");
+        const stats = document.getElementById("stats");
 
         // Populate hue filter
         munsellData.forEach(hueData => {
             const option = document.createElement("option");
             option.value = hueData.hue;
-            option.textContent = hueData.hue;
+            option.textContent = `${hueData.hue} - ${hueData.name}`;
             filterHue.appendChild(option);
         });
 
-        function renderChart(filter = {}) {
-            const { hue, value, chroma, search } = filter;
+        function updateLabels() {
+            valueLabel.textContent = filterValue.value === "0" ? "All" : filterValue.value;
+            chromaLabel.textContent = filterChroma.value === "0" ? "All" : filterChroma.value;
+        }
+
+        function renderChart(filters = {}) {
+            const { hue, value, chroma, search } = filters;
             chart.innerHTML = "";
+            let colorCount = 0;
 
-            munsellData
+            const filteredData = munsellData
                 .filter(hueData => (!hue || hue === "all" || hueData.hue === hue) &&
-                                   (!search || hueData.hue.includes(search.toUpperCase())))
-                .forEach(hueData => {
-                    const hueDiv = document.createElement("div");
-                    hueDiv.className = "hue";
+                                   (!search || hueData.hue.toLowerCase().includes(search.toLowerCase()) || 
+                                              hueData.name.toLowerCase().includes(search.toLowerCase())));
 
-                    const hueTitle = document.createElement("h3");
-                    hueTitle.textContent = `Hue: ${hueData.hue}`;
-                    hueDiv.appendChild(hueTitle);
+            if (filteredData.length === 0) {
+                chart.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <div>No colors match your current filters</div>
+                    </div>
+                `;
+                stats.textContent = "No colors found";
+                return;
+            }
 
-                    const valueDiv = document.createElement("div");
-                    valueDiv.className = "value";
+            filteredData.forEach(hueData => {
+                const hueCard = document.createElement("div");
+                hueCard.className = "hue-card";
 
-                    hueData.colors.forEach((color, index) => {
-                        const currentValue = index + 1;
-                        const currentChroma = (index + 1) * 2;
-                        if ((value && currentValue !== value) || (chroma && currentChroma !== chroma)) return;
+                const hueTitle = document.createElement("h3");
+                hueTitle.className = "hue-title";
+                hueTitle.textContent = `${hueData.hue} - ${hueData.name}`;
+                hueCard.appendChild(hueTitle);
 
+                const colorsGrid = document.createElement("div");
+                colorsGrid.className = "colors-grid";
+
+                const filteredColors = hueData.colors.filter(color => {
+                    const valueMatch = !value || value === 0 || color.value === parseInt(value);
+                    const chromaMatch = !chroma || chroma === 0 || color.chroma === parseInt(chroma);
+                    return valueMatch && chromaMatch;
+                });
+
+                if (filteredColors.length > 0) {
+                    filteredColors.forEach(color => {
                         const colorBox = document.createElement("div");
                         colorBox.className = "color-box";
-                        colorBox.style.backgroundColor = color;
+                        colorBox.style.backgroundColor = color.hex;
+                        colorBox.setAttribute('data-color', JSON.stringify(color));
+                        colorBox.setAttribute('data-hue', hueData.hue);
+                        colorBox.setAttribute('data-name', hueData.name);
 
                         colorBox.addEventListener("mouseenter", (event) => {
-                            tooltip.textContent = `Hue: ${hueData.hue}, Value: ${currentValue}, Chroma: ${currentChroma}`;
+                            const rect = colorBox.getBoundingClientRect();
+                            tooltip.innerHTML = `
+                                <strong>${hueData.hue} - ${hueData.name}</strong><br>
+                                Value: ${color.value} | Chroma: ${color.chroma}<br>
+                                Hex: ${color.hex}
+                            `;
                             tooltip.style.display = "block";
-                            tooltip.style.top = `${event.clientY + 10}px`;
-                            tooltip.style.left = `${event.clientX + 10}px`;
+                            tooltip.style.top = `${rect.top - 80}px`;
+                            tooltip.style.left = `${rect.left + rect.width/2 - tooltip.offsetWidth/2}px`;
                         });
 
                         colorBox.addEventListener("mouseleave", () => {
                             tooltip.style.display = "none";
                         });
 
-                        valueDiv.appendChild(colorBox);
+                        colorBox.addEventListener("click", () => {
+                            navigator.clipboard.writeText(color.hex).then(() => {
+                                const originalText = tooltip.innerHTML;
+                                tooltip.innerHTML = `${originalText}<br><em>Copied to clipboard!</em>`;
+                                setTimeout(() => {
+                                    if (tooltip.style.display === "block") {
+                                        tooltip.innerHTML = originalText;
+                                    }
+                                }, 1500);
+                            });
+                        });
+
+                        colorsGrid.appendChild(colorBox);
+                        colorCount++;
                     });
 
-                    hueDiv.appendChild(valueDiv);
-                    chart.appendChild(hueDiv);
-                });
+                    hueCard.appendChild(colorsGrid);
+                    chart.appendChild(hueCard);
+                }
+            });
+
+            stats.textContent = `Showing ${colorCount} colors from ${filteredData.length} hues`;
         }
 
-        // Update sliders and dropdowns dynamically
-        filterHue.addEventListener("change", () => renderChart({ 
-            hue: filterHue.value, 
-            value: +filterValue.value, 
-            chroma: +filterChroma.value, 
-            search: searchBox.value 
-        }));
+        function applyFilters() {
+            const filters = {
+                hue: filterHue.value,
+                value: parseInt(filterValue.value),
+                chroma: parseInt(filterChroma.value),
+                search: searchBox.value.trim()
+            };
+            renderChart(filters);
+        }
 
+        // Event listeners
+        filterHue.addEventListener("change", applyFilters);
         filterValue.addEventListener("input", () => {
-            valueLabel.textContent = filterValue.value;
-            renderChart({ 
-                hue: filterHue.value, 
-                value: +filterValue.value, 
-                chroma: +filterChroma.value, 
-                search: searchBox.value 
-            });
+            updateLabels();
+            applyFilters();
         });
-
         filterChroma.addEventListener("input", () => {
-            chromaLabel.textContent = filterChroma.value;
-            renderChart({ 
-                hue: filterHue.value, 
-                value: +filterValue.value, 
-                chroma: +filterChroma.value, 
-                search: searchBox.value 
-            });
+            updateLabels();
+            applyFilters();
         });
+        searchBox.addEventListener("input", applyFilters);
 
-        searchBox.addEventListener("input", () => renderChart({ 
-            hue: filterHue.value, 
-            value: +filterValue.value, 
-            chroma: +filterChroma.value, 
-            search: searchBox.value 
-        }));
-
-        // Initial render
+        // Initialize
+        updateLabels();
         renderChart();
+
+        // Hide tooltip when clicking elsewhere
+        document.addEventListener("click", (e) => {
+            if (!e.target.classList.contains("color-box")) {
+                tooltip.style.display = "none";
+            }
+        });
     </script>
 </body>
 </html>
